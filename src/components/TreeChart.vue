@@ -6,6 +6,7 @@
             <div class="person" @click="$emit('click-node', treeData)">
               <div class="avat">
                 <img :src="treeData.image_url" />
+<!--                <img src="../assets/logo.png" />-->
               </div>
               <div class="name">{{treeData.name}}</div>
             </div>
@@ -50,6 +51,7 @@ export default {
         }
         if(Props){
           this.treeData = extendKey(Props);
+          console.log(this.treeData.image_url)
         }
       },
       immediate: true
