@@ -1,5 +1,5 @@
 <template>
-  <div id="treeChart" @click="closemenu">
+  <div id="treeChart">
     <table v-if="treeData.name">
       <tr>
         <td :colspan="treeData.children ? treeData.children.length * 2 : 1" :class="{parentLevel: treeData.children, extend: treeData.children && treeData.extend}">
@@ -11,7 +11,7 @@
               </div>
               <div class="name">{{treeData.name}}</div>
             </div>
-            <div class="person" v-if="treeData.mate" @click="$emit('click-node', treeData.mate)">
+            <div class="person" v-if="treeData.mate" @click="emit_method">
               <div class="avat">
                 <img :src="treeData.mate.image_url" />
               </div>
@@ -27,14 +27,6 @@
         </td>
       </tr>
     </table>
-
-    <div id="menu" ref="menu_box">
-      <div class="menu-item">功能1</div>
-      <div class="menu-item">功能2</div>
-      <div class="menu-item">功能3</div>
-      <div class="menu-item">功能4</div>
-      <div class="menu-item">功能5</div>
-    </div>
   </div>
 </template>
 
@@ -64,7 +56,6 @@ export default {
         }
         if(Props){
           this.treeData = extendKey(Props);
-          console.log(this.treeData)
         }
       },
       immediate: true
@@ -97,6 +88,10 @@ export default {
     },
     closemenu: function () {
       this.$refs.menu_box.style.height=0;
+    },
+    emit_method: function () {
+      console.log("发射")
+      this.$emit('click_node', 123)
     }
 
   }

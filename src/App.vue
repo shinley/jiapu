@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TreeChart :json="treeData" />
+    <TreeChart @click-node="click_node" :json="treeData" />
   </div>
 </template>
 
@@ -52,6 +52,11 @@ export default {
           }
         ]
       }
+    }
+  },
+  methods: {
+    click_node: function(data) {
+      console.log("click-node")
     }
   }
 }
