@@ -1,6 +1,13 @@
 <template>
-  <div id="app">
-    <TreeChart @click-node="click_node" :json="treeData" />
+  <div id="app"  @click="closemenu">
+    <TreeChart @click-node="click_node" :json="treeData" @cxtmenu="cxtmenu($event)" />
+    <div id="menu" ref="menu_box">
+      <div class="menu-item">功能1</div>
+      <div class="menu-item">功能2</div>
+      <div class="menu-item">功能3</div>
+      <div class="menu-item">功能4</div>
+      <div class="menu-item">功能5</div>
+    </div>
   </div>
 </template>
 
@@ -55,9 +62,34 @@ export default {
     }
   },
   methods: {
+    cxtmenu: function(e){
+      console.log("cxtmenu")
+      //取消默认的浏览器自带右键 很重要！！
+      e.preventDefault();
+      //获取我们自定义的右键菜单
+      var menu=this.$refs.menu_box;
+      menu.style.height="125px";
+
+
+      //根据事件对象中鼠标点击的位置，进行定位
+      menu.style.left=e.clientX+'px';
+      menu.style.top=e.clientY+'px';
+      console.log(e.clientX)
+      console.log(e.clientY)
+      console.log(menu.style.left)
+      console.log(menu.style.top)
+
+      //改变自定义菜单的宽，让它显示出来
+      menu.style.width='125px';
+    },
     click_node: function(data) {
       console.log("click-node")
-    }
+      this.$refs.menu_box.style.height=0;
+    },
+    closemenu: function () {
+      console.log("closemenu")
+      this.$refs.menu_box.style.height=0;
+    },
   }
 }
 </script>
@@ -70,5 +102,19 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#menu{
+  position: absolute; /*自定义菜单相对与body元素进行定位*/
+  width: 0; /*设置为0 隐藏自定义菜单*/
+  height: 125px;
+  overflow: hidden; /*隐藏溢出的元素*/
+  box-shadow: 0 1px 1px #888,1px 0 1px #ccc;
+  z-index: 1000;
+}
+.menu-item{
+  width: 130px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
 }
 </style>
