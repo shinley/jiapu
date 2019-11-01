@@ -5,8 +5,8 @@
 </template>
 
 <script>
-  // import TreeChart from './components/TreeChart.vue'
-  import TreeChart from "vue-tree-chart";
+  import TreeChart from './components/TreeChart.vue'
+  // import TreeChart from "vue-tree-chart";
   import logo from "./assets/logo.png";
 
 export default {

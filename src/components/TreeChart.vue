@@ -1,12 +1,13 @@
 <template>
+  <div id="treeChart" @click="closemenu">
     <table v-if="treeData.name">
       <tr>
         <td :colspan="treeData.children ? treeData.children.length * 2 : 1" :class="{parentLevel: treeData.children, extend: treeData.children && treeData.extend}">
           <div :class="{node: true, hasMate: treeData.mate}">
             <div class="person" @click="$emit('click-node', treeData)">
-              <div class="avat">
+              <div class="avat" @contextmenu="cxtmenu($event)">
                 <img :src="treeData.image_url" />
-<!--                <img src="../assets/logo.png" />-->
+                <!--                <img src="../assets/logo.png" />-->
               </div>
               <div class="name">{{treeData.name}}</div>
             </div>
@@ -26,6 +27,15 @@
         </td>
       </tr>
     </table>
+
+    <div id="menu" ref="menu_box">
+      <div class="menu-item">功能1</div>
+      <div class="menu-item">功能2</div>
+      <div class="menu-item">功能3</div>
+      <div class="menu-item">功能4</div>
+      <div class="menu-item">功能5</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,6 +46,9 @@ export default {
     return {
       treeData: {}
     }
+  },
+  mounted() {
+    console.log("持载");
   },
   watch: {
     json: {
@@ -51,7 +64,7 @@ export default {
         }
         if(Props){
           this.treeData = extendKey(Props);
-          console.log(this.treeData.image_url)
+          console.log(this.treeData)
         }
       },
       immediate: true
@@ -61,7 +74,31 @@ export default {
     toggleExtend: function(treeData){
       treeData.extend = !treeData.extend;
       this.$forceUpdate();
+    },
+    cxtmenu: function(e){
+      console.log("cxtmenu")
+      //取消默认的浏览器自带右键 很重要！！
+      e.preventDefault();
+      //获取我们自定义的右键菜单
+      var menu=this.$refs.menu_box;
+      menu.style.height="125px";
+
+
+      //根据事件对象中鼠标点击的位置，进行定位
+      menu.style.left=e.clientX+'px';
+      menu.style.top=e.clientY+'px';
+      console.log(e.clientX)
+      console.log(e.clientY)
+      console.log(menu.style.left)
+      console.log(menu.style.top)
+
+      //改变自定义菜单的宽，让它显示出来
+      menu.style.width='125px';
+    },
+    closemenu: function () {
+      this.$refs.menu_box.style.height=0;
     }
+
   }
 }
 </script>
@@ -101,4 +138,19 @@ transform: rotateZ(135deg);transform-origin: 50% 50% 0;transition: transform eas
 .landscape .hasMate .person{position: absolute; }
 .landscape .hasMate .person:first-child{left:auto; right:-4em;}
 .landscape .hasMate .person:last-child{left: -4em;margin-left:0;}
+
+#menu{
+  position: absolute; /*自定义菜单相对与body元素进行定位*/
+  width: 0; /*设置为0 隐藏自定义菜单*/
+  height: 125px;
+  overflow: hidden; /*隐藏溢出的元素*/
+  box-shadow: 0 1px 1px #888,1px 0 1px #ccc;
+  z-index: 1000;
+}
+.menu-item{
+  width: 130px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
+}
 </style>
