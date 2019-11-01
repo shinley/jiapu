@@ -2,11 +2,9 @@
   <div id="app"  @click="closemenu">
     <TreeChart @click-node="click_node" :json="treeData" @cxtmenu="cxtmenu($event)" />
     <div id="menu" ref="menu_box">
-      <div class="menu-item">功能1</div>
-      <div class="menu-item">功能2</div>
-      <div class="menu-item">功能3</div>
-      <div class="menu-item">功能4</div>
-      <div class="menu-item">功能5</div>
+      <div class="menu-item">增加子女</div>
+      <div class="menu-item">增加伴侣</div>
+      <div class="menu-item">移除成员</div>
     </div>
   </div>
 </template>
@@ -107,14 +105,19 @@ export default {
   position: absolute; /*自定义菜单相对与body元素进行定位*/
   width: 0; /*设置为0 隐藏自定义菜单*/
   height: 125px;
+  background-color: white;
   overflow: hidden; /*隐藏溢出的元素*/
-  box-shadow: 0 1px 1px #888,1px 0 1px #ccc;
+  box-shadow: 0 1px 1px #e5e5e5,1px 0 1px #ccc;
   z-index: 1000;
 }
 .menu-item{
   width: 130px;
   height: 25px;
   line-height: 25px;
-  padding: 0 10px;
+  padding: 5px 0 5px 0;
+}
+.menu-item:hover {
+  background-color: #42b983;
+  cursor:default;
 }
 </style>
