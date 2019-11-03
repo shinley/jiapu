@@ -10,6 +10,7 @@
 </template>
 
 <script>
+  import config from './config/app.config'
   import TreeChart from './components/TreeChart.vue'
   // import TreeChart from "vue-tree-chart";
   import logo from "./assets/logo.png";
@@ -93,10 +94,8 @@ export default {
       this.$refs.menu_box.style.height=0;
     },
     addChildren: function() {
-      var apppath = remote.app.getAppPath()
-      console.log("apppath: ", apppath)
-      var dbpath = path.join(apppath, '../db/jiapu.db')
-      console.log("dbpath: ",dbpath)
+      var dbpath = config.dbpath
+      console.log("db_path: ", dbpath);
       new sqlite3.Database(dbpath, (err) => {
         if (err) {
           alert(err.message)
