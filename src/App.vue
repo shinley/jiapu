@@ -2,7 +2,7 @@
   <div id="app"  @click="closemenu">
     <TreeChart @click-node="click_node" :json="treeData" @cxtmenu="cxtmenu($event)" />
     <div id="menu" ref="menu_box">
-      <div class="menu-item">增加子女</div>
+      <div class="menu-item" @click="addChildren">增加子女</div>
       <div class="menu-item">增加伴侣</div>
       <div class="menu-item">移除成员</div>
     </div>
@@ -13,6 +13,9 @@
   import TreeChart from './components/TreeChart.vue'
   // import TreeChart from "vue-tree-chart";
   import logo from "./assets/logo.png";
+  const path = require('path');
+  const sqlite3 = require('sqlite3').verbose();
+  const fs = require('fs')
 
 export default {
   name: 'app',
@@ -88,6 +91,12 @@ export default {
       console.log("closemenu")
       this.$refs.menu_box.style.height=0;
     },
+    addChildren: function() {
+      var dbpath = path.resolve(__dirname, 'tree.db')
+      fs.exists(dbpath, function (exists) {
+        console.log("存在不?")
+      })
+    }
   }
 }
 </script>
