@@ -93,8 +93,10 @@ export default {
       this.$refs.menu_box.style.height=0;
     },
     addChildren: function() {
-      var dbpath = path.join(__static, 'jiapu.db')
-      console.log(dbpath)
+      var apppath = remote.app.getAppPath()
+      console.log("apppath: ", apppath)
+      var dbpath = path.join(apppath, '../db/jiapu.db')
+      console.log("dbpath: ",dbpath)
       new sqlite3.Database(dbpath, (err) => {
         if (err) {
           alert(err.message)

@@ -4,8 +4,11 @@ module.exports = {
         electronBuilder: {
             builderOptions: {
                 // options placed here will be merged with default configuration and passed to electron-builder
-                "extraFiles":"./public/jiapu.db",
-                "asar": false
+                "extraFiles":[{
+                    "from":"./public/jiapu.db",
+                    "to": "./Resources/db/jiapu.db"
+                }],
+                "asar": true
             }
         }
     }
