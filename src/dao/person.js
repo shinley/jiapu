@@ -18,13 +18,33 @@ const person = {
                 return;
             }
             // var json_persons = {}
+            var persons = new Array();
             for (var i = 0; i < rows.length; i++) {
-                console.log(rows[i].name)
+                var person = new PersonModel();
+                person.id = rows[i].id;
+                person.name = rows[i].name;
+                person.sex = rows[i].sex;
+                person.avatar = rows[i].avatar;
+                person.mate_name = rows[i].mate_name;
+                person.mate_sex = rows[i].mate_sex;
+                person.mate_avatar = rows[i].mate_avatar;
+                persons.push(person);
             }
-
+            console.log(persons);
         })
     }
+}
+
+function PersonModel() {
+    this.id = 0;
+    this.name = "";
+    this.sex = "";
+    this.mate_name = "";
+    this.mate_sex = "";
+    this.mate_avatar = "";
+    this.avatar = "";
 
 }
+
 
 export default person;
