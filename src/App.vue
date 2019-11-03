@@ -16,6 +16,7 @@
   const path = require('path');
   const sqlite3 = require('sqlite3').verbose();
   const fs = require('fs')
+  import {remote} from 'electron'
 
 export default {
   name: 'app',
@@ -92,9 +93,14 @@ export default {
       this.$refs.menu_box.style.height=0;
     },
     addChildren: function() {
-      var dbpath = path.resolve(__dirname, 'tree.db')
-      fs.exists(dbpath, function (exists) {
-        console.log("存在不?")
+      var dbpath = path.join(__static, 'jiapu.db')
+      console.log(dbpath)
+      new sqlite3.Database(dbpath, (err) => {
+        if (err) {
+          alert(err.message)
+        }else {
+          alert("成功连接数据库")
+        }
       })
     }
   }
