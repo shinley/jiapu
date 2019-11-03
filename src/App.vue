@@ -14,10 +14,7 @@
   import TreeChart from './components/TreeChart.vue'
   // import TreeChart from "vue-tree-chart";
   import logo from "./assets/logo.png";
-  const path = require('path');
-  const sqlite3 = require('sqlite3').verbose();
-  const fs = require('fs')
-  import {remote} from 'electron'
+  import person from './dao/person'
 
 export default {
   name: 'app',
@@ -94,15 +91,16 @@ export default {
       this.$refs.menu_box.style.height=0;
     },
     addChildren: function() {
-      var dbpath = config.dbpath
-      console.log("db_path: ", dbpath);
-      new sqlite3.Database(dbpath, (err) => {
-        if (err) {
-          alert(err.message)
-        }else {
-          alert("成功连接数据库")
-        }
-      })
+      // var dbpath = config.dbpath
+      // console.log("db_path: ", dbpath);
+      // new sqlite3.Database(dbpath, (err) => {
+      //   if (err) {
+      //     alert(err.message)
+      //   }else {
+      //     alert("成功连接数据库")
+      //   }
+      // })
+      person.query_all();
     }
   }
 }
